@@ -182,8 +182,9 @@ $(OUTPUT).cia: stripped.elf $(TOPDIR)/assets/banner.bin $(TOPDIR)/assets/image.b
 	@makerom -f cia -o $(OUTPUT).cia -rsf $(TOPDIR)/assets/cia.rsf -target t -exefslogo -elf stripped.elf -icon $(TOPDIR)/assets/image.bin -banner $(TOPDIR)/assets/banner.bin -DAPP_TITLE="$(APP_TITLE)" -DAPP_PRODUCT_CODE="$(APP_PRODUCT_CODE)" -DAPP_UNIQUE_ID="$(APP_UNIQUE_ID)" -DAPP_ROMFS=$(TOPDIR)/$(ROMFS)
 	@echo "built ... $(notdir $@)"
 CopyAfterBuild:
+	@ls ../../output
 	@cp $(OUTPUT).* ../../output
-	@7z a -mx9 ../../output/$(APP_TITLE).7z ../../output/$(APP_TITLE).*
+	@7z a -mx9 -x!*.firm -x!*.firm.sha ../../output/$(APP_TITLE).7z ../../output/$(APP_TITLE).*
 
 #---------------------------------------------------------------------------------
 # you need a rule like this for each extension you use as binary data
@@ -205,6 +206,7 @@ CopyAfterBuild:
 	@echo "extern const u8" `(echo $(notdir $<).shbin | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"[];" >> `(echo $(notdir $<).shbin | tr . _)`.h
 	@echo "extern const u32" `(echo $(notdir $<).shbin | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`_size";" >> `(echo $(notdir $<).shbin | tr . _)`.h
 	@rm ../$(notdir $<).shbin
+
 
 -include $(DEPENDS)
 
