@@ -184,7 +184,7 @@ $(OUTPUT).cia: stripped.elf $(TOPDIR)/assets/banner.bin $(TOPDIR)/assets/image.b
 CopyAfterBuild:
 	@ls ../../output
 	@cp $(OUTPUT).* ../../output
-	@7z a -mx9 -x!*.firm -x!*.firm.sha ../../output/$(APP_TITLE).7z ../../output/$(APP_TITLE).*
+	@7z a -mx9 -x!*.firm -x!*.firm.sha ../../output/$(APP_TITLE)-Shortcut.7z ../../output/$(APP_TITLE).*
 
 #---------------------------------------------------------------------------------
 # you need a rule like this for each extension you use as binary data
